@@ -29,5 +29,10 @@ Her vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosj
 
 ## Python-tjeneste
 
+Når du står i mappen `python-service` kan du kjøre følghende for å deploye:
+```
+gcloud app deploy python-app.yaml
+```
+
 # Bruke Database
 
