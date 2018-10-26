@@ -28,3 +28,6 @@ Her vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosj
 ## Node-tjeneste
 
 ## Python-tjeneste
+
+# Bruke Database
+
