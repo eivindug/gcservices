@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    Hello from webapp
+</body>
+</html>
+
+<script>
+    fetch('node-service')
+        .then(res => res.json())
+        .then(json => console.log("node-service returned: " + JSON.stringify(json)));
+
+    fetch('forward-to-python')
+        .then(res => res.json())
+        .then(json => console.log("forward-to-python: " + JSON.stringify(json)));
+</script>

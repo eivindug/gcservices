@@ -1,0 +1,12 @@
+dispatch:
+  - url: "*/message"
+    service: node
+
+  - url: "*/forward-to-python"
+    service: node
+
+  - url: "*/node-service"
+    service: node
+
+  - url: "*/python-service"
+    service: python
