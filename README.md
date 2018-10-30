@@ -34,11 +34,11 @@ gcloud app deploy python-app.yaml
 ```
 
 ```
-gcloud services list
+gcloud app services list
 ```
 
 ```
-gcloud service delete service1 service2
+gcloud app services delete service1 service2
 ```
 
 Du kan ikke fjerne default-servicen.
