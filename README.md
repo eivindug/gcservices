@@ -148,7 +148,7 @@ Vi kan begynne å bruke denne helt uten videre, uten å opprette en instans elle
 Se koden på node-tjensten: [service.js](node-service/service.js). Her er det to endepunkter på url'en */message* eller [https://node-dot-prosjektnavn.appspot.com/message](https://node-dot-prosjektnavn.appspot.com/message).
 Her kan du bruke både POST og GET. Med POST kan man POST'e en JSON (f.eks. med POSTMAN):
 
-```
+```json
 { "message": "meldingen som skal legges inn i databasen" }
 ```
 
