@@ -98,6 +98,11 @@ Merk at tjenestene webapp og node-service ikke kan kjøre lokalt samtidig.
 
 ## Python-tjeneste
 
+Pytrhon-tjenesten bruker *Flask*-biblioteket for å opprette en web-server og serve REST-endepunkter.
+Den bruker en source-fil, [main.py](python-service/main.py), 
+har en fil som forteller hvilke versjoner vi skal bruke av bibliotekene, [requirements.txt](python-service/requirements.txt) 
+og en fil, [python-app.yaml](python-service/python-app.yaml), som forteller Google Appe Engine hvilken runtime som skal brukes.
+
 Når du står i mappen *python-service* kan du kjøre følghende for å deploye:
 ```
 gcloud app deploy python-app.yaml
