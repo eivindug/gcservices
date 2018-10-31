@@ -14,8 +14,8 @@
 # Introduksjon
 
 Dette prosjektet inneholder en superenkel webapplikasjon og to mikrotjenester som kan deployes på Google App Engine.
-Den ene tjenesten er skrevet JavaScript/Node og den andre med Python/Flask.
-Webapplikasjonen er hostet på Node.
+Den ene mikrotjenesten er skrevet JavaScript/Node og den andre med Python/Flask.
+Webapplikasjonen er hostet på Node/Express.
 Når disse tre tjenestene deployes på Google App Engine kan hver av dem kjøre i hver sin egen Docker-container og tilsammen utgjøre en applikasjon i skyen.
 
 For å bruke Google App Engine må dere opprette en konto på [https://cloud.google.com/](https://cloud.google.com/).
