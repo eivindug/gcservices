@@ -57,7 +57,7 @@ Applikasjonen gjør veldig lite ([index.html](webapp/public/index.html)):
 * Kjører et ajax-kall til /node-service på node-service'n og skriver ut resultatet på websida
 * Kjører et kall til /forward-to-python på node service'n som videresender kallet til python-service'n og skriver ut resultatet på websida
 
-[app.yaml](webapp/app.yaml) bestemmer hvilket type miljø tjenesten skal kjøre i. I dette prosjektet brukes enkle *standard*-miljø. 
+[app.yaml](webapp/app.yaml) bestemmer hvilket type miljø (runtime) tjenesten skal kjøre i. I dette prosjektet brukes enkle *standard*-miljø. 
 Vi kunne også valgt *flex*-miljø som resulterer i at at tjenestene starter i egne Docker-containere. 
 Les mer om miljø her [https://cloud.google.com/appengine/docs/the-appengine-environments](https://cloud.google.com/appengine/docs/the-appengine-environments).
 
@@ -75,10 +75,15 @@ Tjenesten har to endepunkter som i skyen blir tilgjengelig på:
 * [https://node-dot-prosjektnavn.appspot.com/node-service](https://node-dot-prosjektnavn.appspot.com/node-service)
 * [https://node-dot-prosjektnavn.appspot.com/forward-to-python](https://node-dot-prosjektnavn.appspot.com/forward-to-python)
 
-Det første endepunktet skal nå virke og returnere en enkel json med en "Hello"-melding.
+Det første endepunktet skal nå virke og returnere en enkel JSON med en "Hello"-melding.
+
+```
+{"message":"Hello from Node!"}
+```
+
 Det andre endepunktet videresender kall et til python-servicen som enda ikke er oppe så på nåværende tidspunkt skal denne returnere en feil.
 
-Denne tjensten kan også kjøres lokalt med:
+Denne tjenesten kan også kjøres lokalt med:
 
 ```
 npm install
@@ -104,31 +109,46 @@ Denne kan også kjøres lokalt hvis du har python (3) installert. Gå inn i mapp
 python main.py
 ```
 
-Tjensten blir da tilgjengelig på: http://localhost:5000/python-service](http://localhost:5000/python-service).
+Tjensten blir da tilgjengelig på: [http://localhost:5000/python-service](http://localhost:5000/python-service).
+
+Denne responderer på GET og returnerer en enkel melding på JSON-format:
+
+```
+{
+  "message": "Hello from Python!"
+}
+```
 
 ## Administrere tjenestene
 
-Fra konsollet:
+For å liste opp alle tjenestene du har installert i skyen kan du skrive:
 
 ```
 gcloud app services list
 ```
 
-Un-deploy tjenester:
+```
+SERVICE  NUM_VERSIONS
+default  12
+node     8
+python   4
+```
+
+Du kan undeploye tjenester slik:
 
 ```
 gcloud app services delete service1 service2
 ```
 
-Mesteparten kan imidlertid gjøres i skyen: [https://console.cloud.google.com](https://console.cloud.google.com).
+(du kan ikke fjerne default-servicen)
 
-Velg `App Engine` og `Services`. Her kan du gå inn på de tre deployede tjenestene og f.eks. se på loggene. 
+Mesteparten kan imidlertid også gjøres i skyen: [https://console.cloud.google.com](https://console.cloud.google.com).
 
-Du kan ikke fjerne default-servicen.
+Velg `App Engine` og `Services` fra menyen (eller gå rett inn på [https://console.cloud.google.com/appengine/services](https://console.cloud.google.com/appengine/services)). Her kan du gå inn på de tre deployede tjenestene og f.eks. se på loggene. 
 
-Skjermbilde fra Services i skyen
+![](images/gae-services.png)
 
-View Log
+Velg f.eks. `Tools` og `Log` for å se loggen til de individuelle tjenestene.
 
 # Routing
 
