@@ -29,8 +29,9 @@ Da vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosje
 ## Web-app
 
 Denne tjenesten er laget med node.js som server statiske websider. 
-Webapplikasjonen består av [index.html](webapp/public/index.html) og [main.css](webapp/public/main.css) som begge ligger under katalogen [/public](webapp/public). 
-*app.js* og *package.json* oppretter en node.js-server med express. I tillegg har vi fila *app.yaml* som gjør at vi kan deploye denne webapplikasjonen på Google App Engine:
+Webapplikasjonen består av to filer; [index.html](webapp/public/index.html) og [main.css](webapp/public/main.css) som begge ligger under katalogen [/public](webapp/public). 
+På rotkatalogen til tjensten, [/webapp](webapp), ligger [app.js](webapp/app.js) og [package.json](webapp/package.json) som gjør at de statiske filene kan serves på en node.js-server med *express*.
+I tillegg har vi fila [app.yaml](webapp/app.yaml) som gjør at vi kan deploye denne webapplikasjonen på Google App Engine:
 
 ```
 gcloud app deploy app.yaml
