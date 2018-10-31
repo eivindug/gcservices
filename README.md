@@ -93,7 +93,7 @@ Endepunktene bli da tilgjengelig i skyen på:
 * [https://node-dot-prosjektnavn.appspot.com/forward-to-python](https://node-dot-prosjektnavn.appspot.com/forward-to-python)
 * [https://node-dot-prosjektnavn.appspot.com/message](https://node-dot-prosjektnavn.appspot.com/message)
 
-Det første endepunktet skal nå virke og returnere en enkel JSON med en "Hello"-melding.
+Det første endepunktet skal nå virke og returnere den enkle "Hello"-melding.
 
 Det andre endepunktet virker ikke da python-servicen enda ikke er oppe, så på nåværende tidspunkt skal denne returnere en feil.
 
