@@ -68,6 +68,18 @@ app.post('/message', (req, res) => {
         });
 });
 
+
+function sendMail() {
+    console.log("Sending mail 10 seconds after endpoint returned response");
+}
+
+app.post('/delivery', (req, res) => {
+    setTimeout(sendMail, 10000);
+
+    console.log("Sending response immediately");
+    res.status(200).json({status: "OK"});
+});
+
 const port = process.env.PORT || 8080;
 app.listen(port, () => {
     console.log(`Node server listening on port ${port}`);
