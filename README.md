@@ -64,26 +64,40 @@ Les mer om miljø her [https://cloud.google.com/appengine/docs/the-appengine-env
 
 ## Node-tjeneste
 
-Installer denne på Google App Engine ved å gå inn i *node-service*-mappa og skrive:
+Denne tjenesten kjører på *node.js* og *express*. Den har tre REST-endepunkter:
+* /node-service
+* /forward-to-python
+* /message
 
-```
-gcloud app deploy node-app.yaml
-```
-
-Tjenesten har to endepunkter som i skyen blir tilgjengelig på:
-
-* [https://node-dot-prosjektnavn.appspot.com/node-service](https://node-dot-prosjektnavn.appspot.com/node-service)
-* [https://node-dot-prosjektnavn.appspot.com/forward-to-python](https://node-dot-prosjektnavn.appspot.com/forward-to-python)
-
-Det første endepunktet skal nå virke og returnere en enkel JSON med en "Hello"-melding.
+Det første endepunktet returnerer ganske enkelt en JSON:
 
 ```
 {"message":"Hello from Node!"}
 ```
 
-Det andre endepunktet videresender kall et til python-servicen som enda ikke er oppe så på nåværende tidspunkt skal denne returnere en feil.
+Det andre kjører et kall til en ny tjeneste, *python-service*. Det tredje omtales i database-avsnittet.
 
-Denne tjenesten kan også kjøres lokalt med:
+Tjenesten bruker tre source-filer, [service.js](node-service/service.js) som inneholder endepunktene og JavaScript-koden for disse, 
+[package.json](node-service/package.json) som forteller hvilke node-biblioteker og versjoner vi skal bruke, 
+og [node-app.yaml](node-service/node-app.yaml) som forteller Google App Engine hvilken runtime vi skal bruke og hva tjensten skal hete (*node*).
+
+Installer tjenesten på Google App Engine ved å gå inn i *node-service*-mappa og skrive:
+
+```
+gcloud app deploy node-app.yaml
+```
+
+Endepunktene bli da tilgjengelig i skyen på:
+
+* [https://node-dot-prosjektnavn.appspot.com/node-service](https://node-dot-prosjektnavn.appspot.com/node-service)
+* [https://node-dot-prosjektnavn.appspot.com/forward-to-python](https://node-dot-prosjektnavn.appspot.com/forward-to-python)
+* [https://node-dot-prosjektnavn.appspot.com/message](https://node-dot-prosjektnavn.appspot.com/message)
+
+Det første endepunktet skal nå virke og returnere en enkel JSON med en "Hello"-melding.
+
+Det andre endepunktet virker ikke da python-servicen enda ikke er oppe, så på nåværende tidspunkt skal denne returnere en feil.
+
+Node tjenesten kan også kjøres lokalt med:
 
 ```
 npm install
@@ -101,7 +115,8 @@ Merk at tjenestene webapp og node-service ikke kan kjøre lokalt samtidig.
 Python-tjenesten bruker *Flask*-biblioteket for å opprette en web-server og serve REST-endepunkter.
 Den bruker en source-fil, [main.py](python-service/main.py), 
 har en fil som forteller hvilke versjoner vi skal bruke av bibliotekene (Flask), [requirements.txt](python-service/requirements.txt) 
-og en fil, [python-app.yaml](python-service/python-app.yaml), som forteller Google Appe Engine hvilken runtime som skal brukes og hva tjenesten skal hete.
+og en fil, [python-app.yaml](python-service/python-app.yaml), 
+som forteller Google Appe Engine hvilken runtime som skal brukes og hva tjenesten skal hete (*python*).
 
 Når du står i mappen *python-service* kan du kjøre følghende for å deploye:
 ```
