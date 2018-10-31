@@ -7,15 +7,33 @@
 </head>
 <body>
     Hello from webapp
+
+    <div id="node-service"></div>
+    <div id="forward-to-python"></div>
 </body>
 </html>
 
 <script>
     fetch('node-service')
         .then(res => res.json())
-        .then(json => console.log("node-service returned: " + JSON.stringify(json)));
+        .then(json => {
+            console.log("node-service returned: " + JSON.stringify(json))
+            document.querySelector("#node-service").innerHTML = "node-service returned: " + json.message;
+        })
+        .catch(error => {
+            console.log("node-service returned error: " + error)
+            document.querySelector("#node-service").innerHTML = "node-service returned: " + error;
+        });
 
     fetch('forward-to-python')
         .then(res => res.json())
-        .then(json => console.log("forward-to-python: " + JSON.stringify(json)));
+        .then(json => {
+            console.log("forward-to-python returned: " + JSON.stringify(json));
+            document.querySelector("#forward-to-python").innerHTML = "forward-to-python returned: " + json.message;
+        })
+        .catch(error => {
+            console.log("forward-to-python returned error: " + error)
+            document.querySelector("#forward-to-python").innerHTML = "forward-to-python returned: " + error;
+        });
+
 </script>
