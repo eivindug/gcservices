@@ -24,7 +24,7 @@ Her vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosj
 
 ## Web-app
 
-Denne tjenesten er laget med node.js som server statiske websider. Webapplikasjonen består av `index.html` og `main.css`som begge ligger under katalogen `public`. 
+Denne tjenesten er laget med node.js som server statiske websider. Webapplikasjonen består av *index.html* og *main.css*som begge ligger under katalogen *public*. 
 *app.js* og *package.json* oppretter en node.js-server med express. I tillegg har vi fila *app.yaml* som gjør at vi kan deploye denne webapplikasjonen på Google App Engine:
 
 ```
@@ -33,17 +33,23 @@ gcloud app deploy app.yaml
 
 Etter den er deployet vil den være tilgjengelig på URL'en:
 
-[]()
+[https://<prosjektnavn>.appspot.com](https://<prosjektnavn>.appspot.com)
 
 Web-applikasjonen kan også startes lokalt med kommandoen:
 
 ```
+npm install
 npm start
 ```
 
-Da vil den bli tilgjkengelig på:
+Da vil den bli tilgjengelig på:
 
 [http://localhost:8080](http://localhost:8080)
+
+Applikasjonen gjør veldig lite:
+* Den skriver ut en melding: "Hello from webapp"
+* Kjører et ajax-kall til /node-service på node-service'n og skriver ut resultatet
+* Kjører et kall til /forward-to-python på node service'n som videresender kallet til python-service'n og skriver ut resultatet
 
 ## Node-tjeneste
 
