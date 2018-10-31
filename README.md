@@ -63,20 +63,6 @@ Installer denne på Google App Engine ved å gå inn i *node-service*-mappa og s
 gcloud app deploy node-app.yaml
 ```
 
-Denne kan også kjøres lokalt med:
-
-```
-npm install
-npm start
-```
-
-Merk at tjenestene webapp og node-service ikke kan kjøre lokalt samtidig. 
-
-Det første endepunktet vil fungerer lokalt, mens det andre ikke vil det:
-* [http://localhost:8080/node-service](http://localhost:8080/node-service)
-* [http://localhost:8080/forward-to-python](http://localhost:8080/forward-to-python)
-
-
 Tjenesten har to endepunkter som i skyen blir tilgjengelig på:
 
 * [https://node-dot-prosjektnavn.appspot.com/node-service](https://node-dot-prosjektnavn.appspot.com/node-service)
@@ -84,6 +70,19 @@ Tjenesten har to endepunkter som i skyen blir tilgjengelig på:
 
 Det første endepunktet skal nå virke og returnere en enkel json med en "Hello"-melding.
 Det andre endepunktet videresender kall et til python-servicen som enda ikke er oppe så på nåværende tidspunkt skal denne returnere en feil.
+
+Denne tjensten kan også kjøres lokalt med:
+
+```
+npm install
+npm start
+```
+
+Det første endepunktet vil fungere lokalt, mens det andre ikke vil det:
+* [http://localhost:8080/node-service](http://localhost:8080/node-service)
+* [http://localhost:8080/forward-to-python](http://localhost:8080/forward-to-python)
+
+Merk at tjenestene webapp og node-service ikke kan kjøre lokalt samtidig. 
 
 ## Python-tjeneste
 
