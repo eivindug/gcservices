@@ -33,7 +33,7 @@ gcloud app deploy app.yaml
 
 Etter den er deployet vil den være tilgjengelig på URL'en:
 
-()[]
+[]()
 
 Web-applikasjonen kan også startes lokalt med kommandoen:
 
@@ -43,7 +43,7 @@ npm start
 
 Da vil den bli tilgjkengelig på:
 
-(http://localhost:8080)[http://localhost:8080]
+[http://localhost:8080](http://localhost:8080)
 
 ## Node-tjeneste
 
