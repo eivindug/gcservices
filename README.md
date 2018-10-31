@@ -24,6 +24,8 @@ Da vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosje
 
 # Tjenestene
 
+![](images/gae-micro.png)
+
 ## Web-app
 
 Denne tjenesten er laget med node.js som server statiske websider. Webapplikasjonen består av *index.html* og *main.css*som begge ligger under katalogen *public*. 
