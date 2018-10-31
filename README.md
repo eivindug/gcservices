@@ -70,7 +70,12 @@ npm install
 npm start
 ```
 
-Merk at tjenestene virker hver lokalt (localhost:8080) hver for seg, men ikke sammen. 
+Merk at tjenestene webapp og node-service ikke kan kjøre lokalt samtidig. 
+
+Det første endepunktet vil fungerer lokalt, mens det andre ikke vil det:
+* [http://localhost:8080/node-service](http://localhost:8080/node-service)
+* [http://localhost:8080/forward-to-python](http://localhost:8080/forward-to-python)
+
 
 Tjenesten har to endepunkter som i skyen blir tilgjengelig på:
 
@@ -93,7 +98,7 @@ Denne kan også kjøres lokalt hvis du har python (3) installert. Gå inn i mapp
 python main.py
 ```
 
-Tjensten blir da tilgjengelig på: [http://localhost:5000](http://localhost:5000).
+Tjensten blir da tilgjengelig på: http://localhost:5000/python-service](http://localhost:5000/python-service).
 
 ## Administrere tjenestene
 
