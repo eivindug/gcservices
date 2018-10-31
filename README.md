@@ -225,3 +225,5 @@ Med GET vil alle de lagrede meldingene listes. Her er det bare å lime inn url'e
 
 Du kan også sjekke innholdet i database i skyen ved å gå inn på [https://console.cloud.google.com/datastore](https://console.cloud.google.com/datastore). 
 Her kan du velge entitet (kind) og se alle dokumenter lagret for disse. Det er også mulig å bruke GQL for å skrive spørringer.
+
+![](images/gae-datastore.png)
