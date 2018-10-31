@@ -57,6 +57,10 @@ Applikasjonen gjør veldig lite ([index.html](webapp/public/index.html)):
 * Kjører et ajax-kall til /node-service på node-service'n og skriver ut resultatet på websida
 * Kjører et kall til /forward-to-python på node service'n som videresender kallet til python-service'n og skriver ut resultatet på websida
 
+[app.yaml](webapp/app.yaml) bestemmer hvilket type miljø tjenesten skal kjøre i. I dette prosjektet brukes enkle *standard*-miljø. 
+Vi kunne også valgt *flex*-miljø som resulterer i at at tjenestene starter i egne Docker-containere. 
+Les mer om miljø her [https://cloud.google.com/appengine/docs/the-appengine-environments](https://cloud.google.com/appengine/docs/the-appengine-environments).
+
 
 ## Node-tjeneste
 
