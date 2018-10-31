@@ -1,5 +1,13 @@
 # gae-micro
 
+# Table of Contents
+* [Introduksjon](#introduksjon)
+* [Tjenestene](#tjenestene)
+* [Administrere tjenestene](#administrere-tjenestene)
+* [Routing](#routing)
+* [Bruke database](#bruke-database)
+ 
+
 # Introduksjon
 
 Dette prosjektet inneholder en superenkel webapplikasjon og to mikrotjenester som kan deployes på Google App Engine.
@@ -27,7 +35,7 @@ Da vil du bli bedt om å logge på Google-kontoen din, og velge hvilket AppEngin
 
 ![](images/gae-micro.png)
 
-## Web-app
+## webapp
 
 Denne tjenesten er laget med node.js som server statiske websider. 
 Webapplikasjonen består av to filer; [index.html](webapp/public/index.html) og [main.css](webapp/public/main.css) 
@@ -65,7 +73,7 @@ Vi kunne også valgt *flex*-miljø som resulterer i at at tjenestene starter i e
 Les mer om miljø her [https://cloud.google.com/appengine/docs/the-appengine-environments](https://cloud.google.com/appengine/docs/the-appengine-environments).
 
 
-## Node-tjeneste
+## node-service
 
 Denne tjenesten kjører på *node.js* og *express*. Den har tre REST-endepunkter:
 * /node-service
@@ -113,7 +121,7 @@ Det første endepunktet vil fungere lokalt, mens det andre ikke vil det:
 
 Merk at tjenestene webapp og node-service ikke kan kjøre lokalt samtidig. 
 
-## Python-tjeneste
+## python-service
 
 Python-tjenesten bruker *Flask*-biblioteket for å opprette en web-server og serve REST-endepunkter.
 Den bruker en source-fil, [main.py](python-service/main.py), 
@@ -142,7 +150,7 @@ Denne responderer på GET og returnerer en enkel melding på JSON-format:
 }
 ```
 
-## Administrere tjenestene
+# Administrere tjenestene
 
 For å liste opp alle tjenestene du har installert i skyen kan du skrive:
 
