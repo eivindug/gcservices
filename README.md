@@ -10,7 +10,8 @@ Når disse tre tjenestene deployes på Google App Engine vil hver av dem kjøre 
 For å bruke Google App Engine må dere opprette en konto på [https://cloud.google.com/](https://cloud.google.com/).
 Velg "Try free". Her er dere er nødt til å legge til kredittkortopplysninger, men dere skal få beskjed hvis limit'en er nådd og dere må begynne å betale. Det er ett års fri bruk.
 
-Opprett et prosjekt (øverst, ganske langt til venstre) og gi det et passe navn. Du kan bruke det genererte navnet eller finne et selv som ikke er brukt tidligere. Navnet vil bestemme URL'en til tjenestene: [https://<prosjektnavnet>.appspot.com](https://<prosjektnavnet>.appspot.com).
+Opprett et prosjekt (øverst, ganske langt til venstre) og gi det et passe navn. Du kan bruke det genererte navnet eller finne et selv som ikke er brukt tidligere. 
+Navnet vil bestemme URL'en til tjenestene: [https://prosjektnavnet.appspot.com](https://prosjektnavnet.appspot.com).
 
 Du må også laste ned og installere Google Could SDK: [https://cloud.google.com/sdk/downloads](https://cloud.google.com/sdk/downloads). 
 Etterpå kan du åpne et konsoll (f.eks. Git Bash) og skrive:
@@ -34,7 +35,7 @@ gcloud app deploy app.yaml
 
 Etter den er deployet vil den være tilgjengelig på URL'en:
 
-[https://<prosjektnavn>.appspot.com](https://<prosjektnavn>.appspot.com)
+[https://prosjektnavn.appspot.com](https://prosjektnavn.appspot.com)
 
 Web-applikasjonen kan også startes lokalt med kommandoen:
 
@@ -52,7 +53,8 @@ Applikasjonen gjør veldig lite:
 * Kjører et ajax-kall til /node-service på node-service'n og skriver ut resultatet på websida
 * Kjører et kall til /forward-to-python på node service'n som videresender kallet til python-service'n og skriver ut resultatet på websida
 
-Se kildekoden her: [index.html](../tree/master/webapp/public/index.html).
+Se kildekoden her: [index.html](webapp/public/index.html).
+../tree/master/
 
 ## Node-tjeneste
 
