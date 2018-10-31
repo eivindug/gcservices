@@ -132,8 +132,8 @@ I utgangspunktet er tjenestene tilgjeneglig på disse url'ene:
 
 Men for å få til at de bruker samme base-url og derfor slipper CORS-problemer, kan vi legge til ruting av url'er. 
 Fila [dispatch.yaml](dispatch.yaml) på rotkatalogen kan også deployes i skyen, og da vil alle tjenestene bli tilgjengelig på samme base-url:
-* Node-endepunkt 1: [https://node-dot-prosjektnavn.appspot.com](https://prosjektnavn.appspot.com/python-service)
-* Node-endepunkt 2: [https://node-dot-prosjektnavn.appspot.com](https://prosjektnavn.appspot.com/forward-to_python)
+* Node-endepunkt 1: [https://prosjektnavn.appspot.com/node-service](https://prosjektnavn.appspot.com/node-service)
+* Node-endepunkt 2: [https://prosjektnavn.appspot.com/forward-to_python](https://prosjektnavn.appspot.com/forward-to_python)
 * Pyton-endepunkt: [https://prosjektnavn.appspot.com/python-service](https://prosjektnavn.appspot.com/python-service)
 
 ```
@@ -144,6 +144,15 @@ gcloud app deploy dispatch.yaml
 
 Google App Engine tilbyr flere ulike lkagringsmedium. Vi skal bruke den enkleste; `Datastore`. Dette er en NoSQL-style dokumentdatabase. 
 Vi kan begynne å bruke denne helt uten videre, uten å opprette en instans eller noen databasedefinisjoner på forhånd.
+
+Se koden på node-tjensten: [service.js](node-service/service.js). Her er det to endepunkter på url'en */message* eller [https://node-dot-prosjektnavn.appspot.com/message](https://node-dot-prosjektnavn.appspot.com/message).
+Her kan du bruke både POST og GET. Med POST kan man POST'e en JSON (f.eks. med POSTMAN):
+
+```
+{ "message": "meldingen som skal legges inn i databasen" }
+```
+
+Med GET vil alle de lagrede meldingene listes. Her er det bare å lime inn url'en i nettleseren.
 
 Du kan sjekke innholdet i database i skyen ved å gå inn på [https://console.cloud.google.com](https://console.cloud.google.com) og velge `Datastore` fra menyen. 
 Her kan du velge entitet (kind) og se alle dokumenter lagret for disse. Det er også mulig å bruke GQL (Google Query Language) for å skrive spørringer.
