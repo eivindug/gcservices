@@ -74,8 +74,8 @@ Merk at tjenestene virker hver lokalt (localhost:8080) hver for seg, men ikke sa
 
 Tjenesten har to endepunkter som i skyen blir tilgjengelig på:
 
-[https://node-dot-prosjektnavn.appspot.com/node-service](https://node-dot-prosjektnavn.appspot.com/node-service)
-[https://node-dot-prosjektnavn.appspot.com/forward-to-python](https://node-dot-prosjektnavn.appspot.com/forward-to-python)
+* [https://node-dot-prosjektnavn.appspot.com/node-service](https://node-dot-prosjektnavn.appspot.com/node-service)
+* [https://node-dot-prosjektnavn.appspot.com/forward-to-python](https://node-dot-prosjektnavn.appspot.com/forward-to-python)
 
 Det første endepunktet skal nå virke og returnere en enkel json med en "Hello"-melding.
 Det andre endepunktet videresender kall et til python-servicen som enda ikke er oppe så på nåværende tidspunkt skal denne returnere en feil.
@@ -87,13 +87,23 @@ Når du står i mappen *python-service* kan du kjøre følghende for å deploye:
 gcloud app deploy python-app.yaml
 ```
 
+## Administrere tjenestene
+
+Fra konsollet:
+
 ```
 gcloud app services list
 ```
 
+Un-deploy tjenester:
+
 ```
 gcloud app services delete service1 service2
 ```
+
+Mesteparten kan imidlertid gjøres i skyen: [https://console.cloud.google.com](https://console.cloud.google.com).
+
+Velg `App Engine` og `Services`. Her kan du gå inn på de tre deployede tjenestene og f.eks. se på loggene. 
 
 Du kan ikke fjerne default-servicen.
 
@@ -103,7 +113,25 @@ View Log
 
 # Routing
 
-I utgangspunktet er 
+I utgangspunktet er tjenestene tilgjeneglig på disse url'ene:
+* Node-tjeneste: [https://prosjektnavn.appspot.com](https://prosjektnavn.appspot.com)
+* Node-tjeneste: [https://node-dot-prosjektnavn.appspot.com](https://node-dot-prosjektnavn.appspot.com)
+* Pyton-tjeneste: [https://python-dot-prosjektnavn.appspot.com](https://python-dot-prosjektnavn.appspot.com)
+
+Men for å få til at de bruker samme base-url og derfor slipper CORS-problemer, kan vi legge til ruting av url'er. 
+Fila [dispatch.yaml](dispatch.yaml) på rotkatalogen kan også deployes i skyen, og da vil alle tjenestene bli tilgjengelig på samme base-url:
+* Node-endepunkt 1: [https://node-dot-prosjektnavn.appspot.com](https://prosjektnavn.appspot.com/python-service)
+* Node-endepunkt 2: [https://node-dot-prosjektnavn.appspot.com](https://prosjektnavn.appspot.com/forward-to_python)
+* Pyton-endepunkt: [https://prosjektnavn.appspot.com/python-service](https://prosjektnavn.appspot.com/python-service)
+
+```
+gcloud app deploy dispatch.yaml
+```
 
 # Bruke Database
 
+Google App Engine tilbyr flere ulike lkagringsmedium. Vi skal bruke den enkleste; `Datastore`. Dette er en NoSQL-style dokumentdatabase. 
+Vi kan begynne å bruke denne helt uten videre, uten å opprette en instans eller noen databasedefinisjoner på forhånd.
+
+Du kan sjekke innholdet i database i skyen ved å gå inn på [https://console.cloud.google.com](https://console.cloud.google.com) og velge `Datastore` fra menyen. 
+Her kan du velge entitet (kind) og se alle dokumenter lagret for disse. Det er også mulig å bruke GQL (Google Query Language) for å skrive spørringer.
