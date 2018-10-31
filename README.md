@@ -3,9 +3,9 @@
 # Innhold
 * [Introduksjon](#introduksjon)
 * [Tjenestene](#tjenestene)
-** [webapp](#webapp)
-** [Tjenestene](#tjenestene)
-** [Tjenestene](#tjenestene)
+  * [webapp](#webapp)
+  * [node-service](#node-service)
+  * [python-service](#python-service)
 * [Administrere tjenestene](#administrere-tjenestene)
 * [Routing](#routing)
 * [Bruke database](#bruke-database)
