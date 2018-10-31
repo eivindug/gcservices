@@ -28,7 +28,8 @@ Da vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosje
 
 ## Web-app
 
-Denne tjenesten er laget med node.js som server statiske websider. Webapplikasjonen består av *index.html* og *main.css*som begge ligger under katalogen *public*. 
+Denne tjenesten er laget med node.js som server statiske websider. 
+Webapplikasjonen består av [index.html](webapp/public/index.html) og [main.css](webapp/public/main.css) som begge ligger under katalogen [/public](webapp/public). 
 *app.js* og *package.json* oppretter en node.js-server med express. I tillegg har vi fila *app.yaml* som gjør at vi kan deploye denne webapplikasjonen på Google App Engine:
 
 ```
@@ -50,12 +51,11 @@ Da vil den bli tilgjengelig på:
 
 [http://localhost:8080](http://localhost:8080)
 
-Applikasjonen gjør veldig lite:
+Applikasjonen gjør veldig lite ([index.html](webapp/public/index.html)):
 * Den skriver ut en melding: "Hello from webapp"
 * Kjører et ajax-kall til /node-service på node-service'n og skriver ut resultatet på websida
 * Kjører et kall til /forward-to-python på node service'n som videresender kallet til python-service'n og skriver ut resultatet på websida
 
-Se kildekoden her: [index.html](webapp/public/index.html).
 
 ## Node-tjeneste
 
