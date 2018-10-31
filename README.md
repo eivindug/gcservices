@@ -81,6 +81,7 @@ Les mer om miljø her [https://cloud.google.com/appengine/docs/the-appengine-env
 Denne tjenesten kjører på *node.js* og *express*. Den har tre REST-endepunkter:
 * /node-service
 * /forward-to-python
+* /delivery
 * /message
 
 Det første endepunktet returnerer ganske enkelt en JSON:
@@ -89,7 +90,11 @@ Det første endepunktet returnerer ganske enkelt en JSON:
 {"message":"Hello from Node!"}
 ```
 
-Det andre kjører et kall til en ny tjeneste, *python-service*. Det tredje omtales i database-avsnittet.
+Det andre kjører et kall til en ny tjeneste, *python-service*. 
+
+Det tredje er en illustrasjon på et asynkront kall som returnerer med en gang, me kjører en log-linje 10 sekunder etterpå.
+
+Det siste endepunktet, */message*, omtales i database-avsnittet.
 
 Tjenesten bruker tre source-filer, [service.js](node-service/service.js) som inneholder endepunktene og JavaScript-koden for disse, 
 [package.json](node-service/package.json) som forteller hvilke node-biblioteker og versjoner vi skal bruke, 
@@ -105,11 +110,10 @@ Endepunktene bli da tilgjengelig i skyen på:
 
 * [https://node-dot-prosjektid.appspot.com/node-service](https://node-dot-prosjektid.appspot.com/node-service)
 * [https://node-dot-prosjektid.appspot.com/forward-to-python](https://node-dot-prosjektid.appspot.com/forward-to-python)
+* [https://node-dot-prosjektid.appspot.com/delivery](https://node-dot-prosjektid.appspot.com/delivery)
 * [https://node-dot-prosjektid.appspot.com/message](https://node-dot-prosjektid.appspot.com/message)
 
-Det første endepunktet skal nå virke og returnere den enkle "Hello"-melding.
-
-Det andre endepunktet virker ikke da python-servicen enda ikke er oppe, så på nåværende tidspunkt skal denne returnere en feil.
+Det første endepunktet skal nå virke og returnere den enkle "Hello"-melding. Det andre endepunktet virker ikke da python-servicen enda ikke er oppe, så på nåværende tidspunkt skal denne returnere en feil.
 
 Node tjenesten kan også kjøres lokalt med:
 
