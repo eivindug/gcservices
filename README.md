@@ -54,9 +54,31 @@ Applikasjonen gjør veldig lite:
 * Kjører et kall til /forward-to-python på node service'n som videresender kallet til python-service'n og skriver ut resultatet på websida
 
 Se kildekoden her: [index.html](webapp/public/index.html).
-../tree/master/
 
 ## Node-tjeneste
+
+Installer denne på Google App Engine ved å gå inn i *node-service*-mappa og skrive:
+
+```
+gcloud app deploy node-app.yaml
+```
+
+Denne kan også kjøres lokalt med:
+
+```
+npm install
+npm start
+```
+
+Merk at tjenestene virker hver lokalt (localhost:8080) hver for seg, men ikke sammen. 
+
+Tjenesten har to endepunkter som i skyen blir tilgjengelig på:
+
+[https://node-dot-prosjektnavn.appspot.com/node-service](https://node-dot-prosjektnavn.appspot.com/node-service)
+[https://node-dot-prosjektnavn.appspot.com/forward-to-python](https://node-dot-prosjektnavn.appspot.com/forward-to-python)
+
+Det første endepunktet skal nå virke og returnere en enkel json med en "Hello"-melding.
+Det andre endepunktet videresender kall et til python-servicen som enda ikke er oppe så på nåværende tidspunkt skal denne returnere en feil.
 
 ## Python-tjeneste
 
@@ -78,6 +100,10 @@ Du kan ikke fjerne default-servicen.
 Skjermbilde fra Services i skyen
 
 View Log
+
+# Routing
+
+I utgangspunktet er 
 
 # Bruke Database
 
