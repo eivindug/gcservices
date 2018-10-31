@@ -2,7 +2,7 @@
 
 # Introduksjon
 
-Dette prosjektet inneholder en superenkel webapplikasjon og to mikrotjenester som kan depliyes på Google App Engine.
+Dette prosjektet inneholder en superenkel webapplikasjon og to mikrotjenester som kan deployes på Google App Engine.
 Den ene tjenesten er skrevet JavaScript/Node og den andre med Python/Flask.
 Webapplikasjonen er hostet på Node.
 Når disse tre tjenestene deployes på Google App Engine vil hver av dem kjøre i hver sin egen Docker-container.
