@@ -24,6 +24,27 @@ Her vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosj
 
 ## Web-app
 
+Denne tjenesten er laget med node.js som server statiske websider. Webapplikasjonen består av `index.html` og `main.css`som begge ligger under katalogen `public`. 
+*app.js* og *package.json* oppretter en node.js-server med express. I tillegg har vi fila *app.yaml* som gjør at vi kan deploye denne webapplikasjonen på Google App Engine:
+
+```
+gcloud app deploy app.yaml
+```
+
+Etter den er deployet vil den være tilgjengelig på URL'en:
+
+()[]
+
+Web-applikasjonen kan også startes lokalt med kommandoen:
+
+```
+npm start
+```
+
+Da vil den bli tilgjkengelig på:
+
+(http://localhost:8080)[http://localhost:8080]
+
 ## Node-tjeneste
 
 ## Python-tjeneste
