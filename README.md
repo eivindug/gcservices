@@ -5,13 +5,14 @@
 Dette prosjektet inneholder en superenkel webapplikasjon og to mikrotjenester som kan deployes på Google App Engine.
 Den ene tjenesten er skrevet JavaScript/Node og den andre med Python/Flask.
 Webapplikasjonen er hostet på Node.
-Når disse tre tjenestene deployes på Google App Engine vil hver av dem kjøre i hver sin egen Docker-container og tilsammen utgjøre en applikasjon.
+Når disse tre tjenestene deployes på Google App Engine kan hver av dem kjøre i hver sin egen Docker-container og tilsammen utgjøre en applikasjon i skyen.
 
 For å bruke Google App Engine må dere opprette en konto på [https://cloud.google.com/](https://cloud.google.com/).
 Velg "Try free". Her er dere er nødt til å legge til kredittkortopplysninger, men dere skal få beskjed hvis limit'en er nådd og dere må begynne å betale. Det er ett års fri bruk.
 
-Opprett et prosjekt (øverst, ganske langt til venstre) og gi det et passe navn. Du kan bruke det genererte navnet eller finne et selv som ikke er brukt tidligere. 
-Navnet vil bestemme URL'en til tjenestene: [https://prosjektnavnet.appspot.com](https://prosjektnavnet.appspot.com).
+Opprett et prosjekt (øverst, ganske langt til venstre) og gi det et passe navn. 
+Det vil da også opprettes en prosjekt-id som kan være det samme som prosjektnavnet hvis det er ledig.
+Id'en vil bestemme URL'en til tjenestene: [https://prosjektid.appspot.com](https://prosjektid.appspot.com).
 
 Du må også laste ned og installere Google Could SDK: [https://cloud.google.com/sdk/downloads](https://cloud.google.com/sdk/downloads). 
 Etterpå kan du åpne et konsoll (f.eks. Git Bash) og skrive:
@@ -20,7 +21,7 @@ Etterpå kan du åpne et konsoll (f.eks. Git Bash) og skrive:
 gcloud init
 ```
 
-Da vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosjekt (som du nettopp lagde).
+Da vil du bli bedt om å logge på Google-kontoen din, og velge hvilket AppEngine-prosjekt du skal jobbe på (det som du nettopp lagde).
 
 # Tjenestene
 
@@ -29,8 +30,10 @@ Da vil du bli bedt om å logge på Google-kontoen din, og velge AppEngine prosje
 ## Web-app
 
 Denne tjenesten er laget med node.js som server statiske websider. 
-Webapplikasjonen består av to filer; [index.html](webapp/public/index.html) og [main.css](webapp/public/main.css) som begge ligger under katalogen [/public](webapp/public). 
-På rotkatalogen til tjensten, [/webapp](webapp), ligger [app.js](webapp/app.js) og [package.json](webapp/package.json) som gjør at de statiske filene kan serves på en node.js-server med *express*.
+Webapplikasjonen består av to filer; [index.html](webapp/public/index.html) og [main.css](webapp/public/main.css) 
+som begge ligger under katalogen [/public](webapp/public). 
+På rotkatalogen til tjensten, [/webapp](webapp), ligger [app.js](webapp/app.js) og [package.json](webapp/package.json) 
+som gjør at de statiske filene kan serves på en node.js-server med *express*.
 I tillegg har vi fila [app.yaml](webapp/app.yaml) som gjør at vi kan deploye denne webapplikasjonen på Google App Engine:
 
 ```
@@ -39,7 +42,7 @@ gcloud app deploy app.yaml
 
 Etter den er deployet vil den være tilgjengelig på URL'en:
 
-[https://prosjektnavn.appspot.com](https://prosjektnavn.appspot.com)
+[https://prosjektid.appspot.com](https://prosjektid.appspot.com)
 
 Web-applikasjonen kan også startes lokalt med kommandoen:
 
@@ -89,9 +92,9 @@ gcloud app deploy node-app.yaml
 
 Endepunktene bli da tilgjengelig i skyen på:
 
-* [https://node-dot-prosjektnavn.appspot.com/node-service](https://node-dot-prosjektnavn.appspot.com/node-service)
-* [https://node-dot-prosjektnavn.appspot.com/forward-to-python](https://node-dot-prosjektnavn.appspot.com/forward-to-python)
-* [https://node-dot-prosjektnavn.appspot.com/message](https://node-dot-prosjektnavn.appspot.com/message)
+* [https://node-dot-prosjektid.appspot.com/node-service](https://node-dot-prosjektid.appspot.com/node-service)
+* [https://node-dot-prosjektid.appspot.com/forward-to-python](https://node-dot-prosjektid.appspot.com/forward-to-python)
+* [https://node-dot-prosjektid.appspot.com/message](https://node-dot-prosjektid.appspot.com/message)
 
 Det første endepunktet skal nå virke og returnere den enkle "Hello"-melding.
 
@@ -173,15 +176,15 @@ Velg f.eks. `Tools` og `Logs` for å se loggen til de individuelle tjenestene.
 # Routing
 
 I utgangspunktet er tjenestene tilgjeneglig på disse url'ene:
-* Node-tjeneste: [https://prosjektnavn.appspot.com](https://prosjektnavn.appspot.com)
-* Node-tjeneste: [https://node-dot-prosjektnavn.appspot.com](https://node-dot-prosjektnavn.appspot.com)
-* Pyton-tjeneste: [https://python-dot-prosjektnavn.appspot.com](https://python-dot-prosjektnavn.appspot.com)
+* Node-tjeneste: [https://prosjektid.appspot.com](https://prosjektid.appspot.com)
+* Node-tjeneste: [https://node-dot-prosjektid.appspot.com](https://node-dot-prosjektid.appspot.com)
+* Pyton-tjeneste: [https://python-dot-prosjektid.appspot.com](https://python-dot-prosjektid.appspot.com)
 
 Men for å få til at de bruker samme base-url og derfor slipper CORS-problemer, kan vi legge til ruting av url'er. 
 Fila [dispatch.yaml](dispatch.yaml) på rotkatalogen kan også deployes i skyen, og da vil alle tjenestene bli tilgjengelig på samme base-url:
-* Node-endepunkt 1: [https://prosjektnavn.appspot.com/node-service](https://prosjektnavn.appspot.com/node-service)
-* Node-endepunkt 2: [https://prosjektnavn.appspot.com/forward-to_python](https://prosjektnavn.appspot.com/forward-to_python)
-* Pyton-endepunkt: [https://prosjektnavn.appspot.com/python-service](https://prosjektnavn.appspot.com/python-service)
+* Node-endepunkt 1: [https://prosjektid.appspot.com/node-service](https://prosjektid.appspot.com/node-service)
+* Node-endepunkt 2: [https://prosjektid.appspot.com/forward-to_python](https://prosjektid.appspot.com/forward-to_python)
+* Pyton-endepunkt: [https://prosjektid.appspot.com/python-service](https://prosjektid.appspot.com/python-service)
 
 ```
 gcloud app deploy dispatch.yaml
@@ -200,7 +203,7 @@ Denne returnerer et *Promise* som vi håndterer med *.then()* og *.catch()*.
 POST-endepunktet henter alle meldingene ved å opprette en default-query mot `kind'en` message: *datastore.createQuery('message')* og senere *datastore.runQuery(query)*. 
 Her kunne vi også skrevet en query med GQL (Google Query Language).
 
-Node/express-tjenesten har to endepunkter på url'en */message* eller [https://node-dot-prosjektnavn.appspot.com/message](https://node-dot-prosjektnavn.appspot.com/message).
+Node/express-tjenesten har to endepunkter på url'en */message* eller [https://node-dot-prosjektid.appspot.com/message](https://node-dot-prosjektid.appspot.com/message).
 Her kan du bruke både POST og GET. Med POST kan man POST'e en JSON (f.eks. med POSTMAN):
 
 ```json
