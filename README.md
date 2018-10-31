@@ -52,7 +52,7 @@ Applikasjonen gjør veldig lite:
 * Kjører et ajax-kall til /node-service på node-service'n og skriver ut resultatet på websida
 * Kjører et kall til /forward-to-python på node service'n som videresender kallet til python-service'n og skriver ut resultatet på websida
 
-Se kildekoden her: [index.html](../blob/master/webapp/public/index.html).
+Se kildekoden her: [index.html](../tree/master/webapp/public/index.html).
 
 ## Node-tjeneste
 
