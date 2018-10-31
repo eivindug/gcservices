@@ -148,7 +148,7 @@ Velg `App Engine` og `Services` fra menyen (eller gå rett inn på [https://cons
 
 ![](images/gae-services.png)
 
-Velg f.eks. `Tools` og `Log` for å se loggen til de individuelle tjenestene.
+Velg f.eks. `Tools` og `Logs` for å se loggen til de individuelle tjenestene.
 
 # Routing
 
@@ -172,12 +172,15 @@ gcloud app deploy dispatch.yaml
 Google App Engine tilbyr flere ulike lkagringsmedium. Vi skal bruke den enkleste; `Datastore`. Dette er en NoSQL-style dokumentdatabase. 
 Vi kan begynne å bruke denne helt uten videre, uten å opprette en instans eller noen databasedefinisjoner på forhånd.
 
-Se koden på node-tjensten: [service.js](node-service/service.js). Vi bruker node-biblioteket `@google-cloud/datastore` og kan legge et nytt dokument med gitt *kind* som tilsvarer en tabell i SQL, men uten at denne må opprettes før vi begynner å bruke den.
-Med *datastore.key(kind)* opprettes det automatisk en primærnøkkel, og vil legger til de data vi ønsker med *data: json*.
+Se koden på node-tjensten: [service.js](node-service/service.js). 
+Vi bruker node-biblioteket `@google-cloud/datastore` og kan legge et nytt dokument med gitt *kind* som tilsvarer en tabell i SQL, men uten at denne må opprettes før vi begynner å bruke den.
+Med *datastore.key(kind)* opprettes det automatisk en primærnøkkel, og vil legger til de data vi ønsker i *data: json* og bruker *datastore.save()* for å lagre denne. 
+Denne returnerer et *Promise* som vi håndterer med *.then()* og *.catch()*.
 
-POST-endepunktet henter alle meldingene ved å opprette en default-query: *datastore.createQuery('message')*. Her kunne vi også skrevet en query med GQL (Google Query Language).
+POST-endepunktet henter alle meldingene ved å opprette en default-query mot `kind'en` message: *datastore.createQuery('message')* og senere *datastore.runQuery(query)*. 
+Her kunne vi også skrevet en query med GQL (Google Query Language).
 
-Node-tjenesten har to endepunkter på url'en */message* eller [https://node-dot-prosjektnavn.appspot.com/message](https://node-dot-prosjektnavn.appspot.com/message).
+Node/express-tjenesten har to endepunkter på url'en */message* eller [https://node-dot-prosjektnavn.appspot.com/message](https://node-dot-prosjektnavn.appspot.com/message).
 Her kan du bruke både POST og GET. Med POST kan man POST'e en JSON (f.eks. med POSTMAN):
 
 ```json
@@ -186,5 +189,5 @@ Her kan du bruke både POST og GET. Med POST kan man POST'e en JSON (f.eks. med 
 
 Med GET vil alle de lagrede meldingene listes. Her er det bare å lime inn url'en i nettleseren.
 
-Du kan sjekke innholdet i database i skyen ved å gå inn på [https://console.cloud.google.com/datastore](https://console.cloud.google.com/datastore). 
+Du kan også sjekke innholdet i database i skyen ved å gå inn på [https://console.cloud.google.com/datastore](https://console.cloud.google.com/datastore). 
 Her kan du velge entitet (kind) og se alle dokumenter lagret for disse. Det er også mulig å bruke GQL for å skrive spørringer.
