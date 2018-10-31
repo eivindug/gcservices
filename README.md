@@ -182,7 +182,9 @@ Velg `App Engine` og `Services` fra menyen (eller gå rett inn på [https://cons
 
 ![](images/gae-services.png)
 
-Velg f.eks. `Tools` og `Logs` for å se loggen til de individuelle tjenestene.
+Velg f.eks. `Tools` og `Logs` for å se loggen til de individuelle tjenestene:
+
+![](images/gae-logs.png)
 
 # Routing
 
