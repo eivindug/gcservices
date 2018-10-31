@@ -87,6 +87,14 @@ Når du står i mappen *python-service* kan du kjøre følghende for å deploye:
 gcloud app deploy python-app.yaml
 ```
 
+Denne kan også kjøres lokalt hvis du har python (3) installert. Gå inn i mappa *python-service* og skriv:
+
+```
+python main.py
+```
+
+Tjensten blir da tilgjengelig på: [http://localhost:5000](http://localhost:5000).
+
 ## Administrere tjenestene
 
 Fra konsollet:
