@@ -10,3 +10,12 @@ dispatch:
 
   - url: "*/python-service"
     service: python
+  
+  - url: "*/product-service"
+    service: product
+  
+  - url: "*/products/get"
+    service: product
+  
+  - url: "*/products/getprice/*"
+    service: product
