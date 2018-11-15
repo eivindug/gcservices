@@ -1,21 +1,11 @@
 dispatch:
-  - url: "*/message"
-    service: node
-
-  - url: "*/forward-to-python"
-    service: node
-
-  - url: "*/node-service"
-    service: node
-
-  - url: "*/python-service"
-    service: python
-  
   - url: "*/product-service"
     service: product
-  
+
   - url: "*/products/get"
     service: product
-  
+
   - url: "*/products/getprice/*"
+    service: product
+  - url: "*/products/*"
     service: product

@@ -37,10 +37,10 @@ app.get('/products/getprice/:productId', (req, res) =>{
     console.error('Getting price');
     const id= req.params.productId;
     console.error('Getting price for item' + id);
-    
-    const query = datastore.createQuery('product').filter('__key__', '=', 
+
+    const query = datastore.createQuery('product').filter('__key__', '=',
         datastore.key(['product', id]));
-    
+
     datastore
         .runQuery(query)
         .then(entities => entities[0])
@@ -52,7 +52,23 @@ app.get('/products/getprice/:productId', (req, res) =>{
             console.log("Error: " + error);
             res.status(500);
         });
-    
+
+});
+
+app.post("/products/", (req,res) => {
+  name = req.body.name;
+  price = req.body.price;
+
+  const newP = {
+    key: datastore.key("product"),
+    data: req.body,
+  };
+
+  datastore.save(newP).then(() => {
+    res.status(200).send();
+  }).catch(error => {
+    res.status(500);
+  });
 });
 
 const port = process.env.PORT || 2228;
