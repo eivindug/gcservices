@@ -7,5 +7,24 @@ dispatch:
 
   - url: "*/products/getprice/*"
     service: product
+
   - url: "*/products/*"
     service: product
+
+  - url: "*/delivery/createOrder/*"
+    service: delivery
+
+  - url: "*/delivery"
+    service: delivery
+
+  - url: "*/message"
+    service: delivery
+
+  - url: "*/delivery-service"
+    service: delivery
+
+  - url: "*/delivery/getStatus/*"
+    service: delivery
+
+  - url: "*/delivery/getAll/*"
+    service: delivery
