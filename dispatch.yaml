@@ -19,3 +19,12 @@ dispatch:
   
   - url: "*/products/getprice/*"
     service: product
+  
+  - url: "*/shopping-cart-service"
+    service: shopping
+  
+  - url: "*/post"
+    service: shopping
+    
+  - url: "*/get/*"
+    service: shopping
