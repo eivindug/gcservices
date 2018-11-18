@@ -15,16 +15,48 @@ app.get('/node-service', (req, res) => {
     res.status(200).json({ 'message': 'Hello from Node!' });
 });
 
-app.get('/forward-to-python', (req, res) => {
-    // node-fetch må ha absolutt URL
-    fetch(req.protocol + '://' + req.host + '/python-service')
-        .then(res => res.json())
-        .then(json => {
-            console.log(json);
-            res.json(json);
-        })
-        .catch(error => console.log(error))
-});
+let id = 0;
+var arr = [];
+
+function incId(){
+  return id++;
+}
+
+
+app.post("/createOrder", (req, res) => {
+  id = incId();
+  status = "created";
+  shoppingcart = req.body;
+
+  const newOrder = {
+    key: datastore.key("delivery"),
+    data:{
+      "id": id,
+      "status": status,
+      "shoppingcart": shopping
+    },
+  };
+
+  datastore.save(newOrder).then(() => {
+    console.log(`Saved ${newOrder.key.name}, ${newOrder.data.status}`);
+    res.status(200).send();
+  }).catch(error => {
+    console.log(error);
+    res.send(500);
+  })
+
+
+  res.status(200);
+})
+
+app.get("/getStatus/:orderId", (req, res) => {
+
+})
+
+app.post("/deliverOrder/:orderId",(req,res) => {
+
+})
+
 
 app.get('/message', (req, res) => {
     console.error('Getting all messages');
@@ -44,29 +76,7 @@ app.get('/message', (req, res) => {
         });
 })
 
-app.post('/message', (req, res) => {
-    console.log('New message: ' + req.body.message);
 
-    // Prepares the new entity
-    const newMessage = {
-        key: datastore.key('message'),
-        data: {
-            message: req.body.message,
-        },
-    };
-
-    // Saves the entity
-    datastore
-        .save(newMessage)
-        .then(() => {
-            console.log(`Saved ${newMessage.key.name}: ${newMessage.data.message}`);
-            res.status(200).send();
-        })
-        .catch(error => {
-            console.log("Error: " + error);
-            res.status(500);
-        });
-});
 
 
 function sendMail() {

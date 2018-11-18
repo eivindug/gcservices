@@ -27,26 +27,41 @@ app.get('/shopping-cart-service', (req, res) => {
     res.status(200).json({ 'message': 'Hello from ShoppingCartService!' });
 });
 
-app.get('/get/:email'), (req, res) => {
-     const email= req.params.email;
-     var products;
-     
-         const query = datastore.createQuery('shopitem').select('productId').filter('email', '=', email);
+app.get('/shopping/getCart/:email', (req, res) => {
+    const email= req.params.email;
+    
+    console.error('Getting cart for user ' + email);
+    const query = datastore.createQuery('shopitem').filter('email', '=', email);
     
     datastore
         .runQuery(query)
         .then(entities => entities[0])
         .then(json => {
             console.log(json);
-            res.status(200).json(json);
+            getShoppinglist(json ,req, res).then(json => res.status(200).json(json));
         })
         .catch(error => {
             console.log("Error: " + error);
             res.status(500);
         });
+    
+});
+async function getShoppinglist(json , req, res) {
+    var items=[];
+    for (var i=0; i<json.length; i++){
+        var item = await getItem(json[0].productId, req, res).then(res => res.json()).then(json => item=json);
+        console.log("item");
+        items.push(item[0]);
+    }
+    console.log(items[0]);
+    console.log(items);
+    return items;
+}
+function getItem(productId, req, res) {
+        return fetch(req.protocol + '://' + req.host + '/products/getprice/'+productId);
 }
 
-app.post('/post', (req, res) => {
+app.post('/shopping/add', (req, res) => {
     const email=req.body.email;
     const productId=req.body.id;
     console.error('posting item ' + productId + ' in shoppinglist for user ' + email);
@@ -65,7 +80,6 @@ app.post('/post', (req, res) => {
         .then(() => {
             console.log(`Saved ${newShopItem.key.name}: ${newShopItem.data.email}`);
             res.status(200).send();
-            //makeItemToShopperConnection(email, productId, res);
         })
         .catch(error => {
             console.log("Error: " + error);
@@ -73,35 +87,6 @@ app.post('/post', (req, res) => {
         });
     
 });
-
-/*function makeItemToShopperConnection(email, id, res) {
-    console.error('Making table with ' + id + ' and email ' + email);
-    
-    const newShopperItem = {
-        key: datastore.key([
-                'shopper',
-                email,
-                'product',
-                id,
-                'shoppinglist',
-                listId,
-              ]),
-        data: {
-        },
-    };
-    
-     datastore
-        .save(newShopperItem)
-        .then(() => {
-            console.log(`Saved ${newShopperItem.key.name}: ${newShopperItem.data.email}`);
-            res.status(200).send();
-            listId++;
-        })
-        .catch(error => {
-            console.log("Error: " + error);
-            res.status(500);
-        });   
-}*/
 
 const port = process.env.PORT || 2229;
 app.listen(port, () => {
