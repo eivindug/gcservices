@@ -38,7 +38,7 @@ app.get('/shopping/getCart/:email', (req, res) => {
         .then(entities => entities[0])
         .then(json => {
             console.log(json);
-            getShoppinglist(json ,req, res).then(json => res.status(200).json(json));
+            getShoppinglist(json ,req, res).then(send => res.status(200).json([json[0].email, send]));
         })
         .catch(error => {
             console.log("Error: " + error);
@@ -49,7 +49,7 @@ app.get('/shopping/getCart/:email', (req, res) => {
 async function getShoppinglist(json , req, res) {
     var items=[];
     for (var i=0; i<json.length; i++){
-        var item = await getItem(json[0].productId, req, res).then(res => res.json()).then(json => item=json);
+        var item = await getItem(json[i].productId, req, res).then(res => res.json()).then(json => item=json);
         console.log("item");
         items.push(item[0]);
     }
