@@ -83,9 +83,32 @@ app.get("/delivery/getAll/", (req,res) => {
         });
 });
 
-// app.post("/deliverOrder/:orderId",(req,res) => {
-//     x = 0
-// })
+app.post("/deliver/deliverOrder/:orderId",(req,res) => {
+    id = req.params.orderId;
+    setTimeout(() => {
+      updateStatus(id,"pending");
+      setTimeout(() => {
+        updateStatus(id,"under delivery");
+        setTimeout(() => {
+          updateStatus(id,"delivered");
+          sendMail();
+        },5000);
+      },5000);
+    },5000);
+})
+
+function updateStatus(id,status) {
+  const query = {
+    key: id,
+    status: status
+  };
+
+  datastore.update(query).then(() => {
+    return 0;
+  }).catch(error => {
+    return error;
+  });
+}
 
 
 app.get('/message', (req, res) => {
