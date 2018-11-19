@@ -7,9 +7,15 @@ dispatch:
 
   - url: "*/products/getprice/*"
     service: product
-
-  - url: "*/products/*"
-    service: product
+  
+  - url: "*/shopping-cart-service"
+    service: shopping
+  
+  - url: "*/shopping/add"
+    service: shopping
+    
+  - url: "*/shopping/getCart/*"
+    service: shopping
 
   - url: "*/delivery/createOrder/*"
     service: delivery

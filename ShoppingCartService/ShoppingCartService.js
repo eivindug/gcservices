@@ -7,6 +7,7 @@ const Datastore = require('@google-cloud/datastore');
 const datastore = new Datastore();
 
 var itemTable;
+var listId=0;
 
 const app = express();
 app.use(bodyParser.json()); // for parsing application/json
@@ -26,23 +27,65 @@ app.get('/shopping-cart-service', (req, res) => {
     res.status(200).json({ 'message': 'Hello from ShoppingCartService!' });
 });
 
-app.post('/post', (req, res) => {
+app.get('/shopping/getCart/:email', (req, res) => {
+    const email= req.params.email;
+    
+    console.error('Getting cart for user ' + email);
+    const query = datastore.createQuery('shopitem').filter('email', '=', email);
+    
+    datastore
+        .runQuery(query)
+        .then(entities => entities[0])
+        .then(json => {
+            console.log(json);
+            getShoppinglist(json ,req, res).then(send => res.status(200).json([json[0].email, send]));
+        })
+        .catch(error => {
+            console.log("Error: " + error);
+            res.status(500);
+        });
+    
+});
+async function getShoppinglist(json , req, res) {
+    var items=[];
+    for (var i=0; i<json.length; i++){
+        var item = await getItem(json[i].productId, req, res).then(res => res.json()).then(json => item=json);
+        console.log("item");
+        items.push(item[0]);
+    }
+    console.log(items[0]);
+    console.log(items);
+    return items;
+}
+function getItem(productId, req, res) {
+        return fetch(req.protocol + '://' + req.host + '/products/getprice/'+productId);
+}
+
+app.post('/shopping/add', (req, res) => {
     const email=req.body.email;
     const productId=req.body.id;
     console.error('posting item ' + productId + ' in shoppinglist for user ' + email);
     
-    const name=itemTable[productId-1];
-    var price;
-    
-    fetch(req.protocol + '://' + req.host + '/products/getprice/'+productId)
-        .then(res => res.json())
-        .then(json => {
-            console.log(json);
-            price=json;
+    const newShopItem = {
+        key: datastore.key('shopitem'),
+        data: {
+            email: email,
+            productId: productId,
+        },
+    };
+
+    // Saves the entity
+    datastore
+        .save(newShopItem)
+        .then(() => {
+            console.log(`Saved ${newShopItem.key.name}: ${newShopItem.data.email}`);
+            res.status(200).send();
         })
-        .catch(error => console.log(error));
-   
-   
+        .catch(error => {
+            console.log("Error: " + error);
+            res.status(500);
+        });
+    
 });
 
 const port = process.env.PORT || 2229;
