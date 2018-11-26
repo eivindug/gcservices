@@ -16,6 +16,9 @@ dispatch:
     
   - url: "*/shopping/getCart/*"
     service: shopping
+    
+  - url: "*/shopping/buy/*"
+    service: shopping
 
   - url: "*/delivery/createOrder/*"
     service: delivery

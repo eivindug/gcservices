@@ -88,6 +88,31 @@ app.post('/shopping/add', (req, res) => {
     
 });
 
+app.post('/shopping/buy/:email', (req, res) => {
+    const email=req.body.email;
+    console.log("Creating order");
+        const query = datastore.createQuery('shopitem').filter('email', '=', email);
+    
+    datastore
+        .runQuery(query)
+        .then(entities => entities[0])
+        .then(json => {
+            console.log(json);
+            getShoppinglist(json ,req, res).then(send => createOrder(send, req, res).then(res => res.json()).then(json => res.status(200).json(json)));
+        })
+        .catch(error => {
+            console.log("Error: " + error);
+            res.status(500);
+        });
+});
+
+function createOrder(shoppingcart, req, res) {
+        return fetch(req.protocol + '://' + req.host + '/delivery/createOrder/', {method:'Post', params: shoppingcart});
+}
+function deliverOrder(orderId, req, res) {
+        return fetch(req.protocol + '://' + req.host + '/delivery/deliverOrder/'+orderId);
+}
+
 const port = process.env.PORT || 2229;
 app.listen(port, () => {
     console.log(`Node server listening on port ${port}`);
