@@ -7,13 +7,13 @@ dispatch:
 
   - url: "*/products/getprice/*"
     service: product
-  
+
   - url: "*/shopping-cart-service"
     service: shopping
-  
+
   - url: "*/shopping/add"
     service: shopping
-    
+
   - url: "*/shopping/getCart/*"
     service: shopping
     
@@ -36,4 +36,7 @@ dispatch:
     service: delivery
 
   - url: "*/delivery/getAll/*"
+    service: delivery
+
+  - url: "*/delivery/deliverOrder/*"
     service: delivery
