@@ -50,21 +50,15 @@ app.post("/delivery/createOrder/", (req, res) => {
 });
 
 app.get("/delivery/getStatus/:orderId", (req, res) => {
-  const query = datastore
-                .createQuery("delivery")
-                .filter("id", "=", req.params.orderId);
-
-  //const query = "SELECT * FROM delivery WHERE id=""+req.params.orderId;
-  datastore.runQuery(query)
-            .then(results => results[0])
-            .then(json => {
-              console.log(json)
-              res.status(200).json(json);
-            })
-            .catch(error => {
-                res.status(500);
-              });
-
+   const id = parseInt(req.params.orderId);
+   datastore.get(datastore.key(["delivery",id])).then(result => {
+     const entity = result[0];
+     console.log(entity);
+     res.status(200).json(entity);
+   }).catch(error => {
+     console.log(error);
+     res.status(500);
+   })
 });
 
 app.get("/delivery/getAll/", (req,res) => {
@@ -83,24 +77,41 @@ app.get("/delivery/getAll/", (req,res) => {
         });
 });
 
-app.post("/deliver/deliverOrder/:orderId",(req,res) => {
-    id = req.params.orderId;
-    setTimeout(() => {
-      updateStatus(id,"pending");
-      setTimeout(() => {
-        updateStatus(id,"under delivery");
-        setTimeout(() => {
-          updateStatus(id,"delivered");
-          sendMail();
-        },5000);
-      },5000);
-    },5000);
-})
+app.post("/delivery/deliverOrder/:orderId",(req,res) => {
+    const id = parseInt(req.params.orderId);
+    datastore.get(datastore.key(["delivery",id])).then(result => {
+      var ent = result[0];
+      const query = {
+        key: datastore.key(["delivery",id]),
+        data: ent,
+      };
 
-function updateStatus(id,status) {
+      datastore.update(query).then(() => {
+        setTimeout(() => {
+          updateStatus(id,"pending",ent);
+          setTimeout(() => {
+            updateStatus(id,"under delivery",ent);
+            setTimeout(() => {
+              updateStatus(id,"delivered",ent);
+              sendMail();
+            },5000);
+          },5000);
+        },5000);
+        res.status(200).json({status: "ok"});
+        }).catch(error => {
+          console.log(error);
+          res.status(500);
+        })
+    });
+});
+
+
+function updateStatus(id,status,entitet) {
+  console.log("Updating status " + status + " on id: " + id);
+  entitet.status = status;
   const query = {
-    key: id,
-    status: status
+    key: datastore.key(["delivery",id]),
+    data: entitet
   };
 
   datastore.update(query).then(() => {
