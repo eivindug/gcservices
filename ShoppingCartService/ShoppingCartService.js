@@ -98,7 +98,7 @@ app.post('/shopping/buy/:email', (req, res) => {
         .then(entities => entities[0])
         .then(json => {
             console.log(json);
-            getShoppinglist(json ,req, res).then(send => createOrder(send, req, res).then(res => res.json()).then(json => res.status(200).json(json)));
+            getShoppinglist(json ,req, res).then(send => createOrder(JSON.stringify([{"email":json[0].email}, send]), req, res).then(res => res.json()).then(json => res.status(200).json(json)));
         })
         .catch(error => {
             console.log("Error: " + error);
@@ -107,6 +107,7 @@ app.post('/shopping/buy/:email', (req, res) => {
 });
 
 function createOrder(shoppingcart, req, res) {
+        console.log("Creating order with shoppingcar: " + shoppingcart);
         return fetch(req.protocol + '://' + req.host + '/delivery/createOrder/', {method:'Post', params: shoppingcart});
 }
 function deliverOrder(orderId, req, res) {
