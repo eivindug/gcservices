@@ -38,7 +38,7 @@ app.get('/shopping/getCart/:email', (req, res) => {
         .then(entities => entities[0])
         .then(json => {
             console.log(json);
-            getShoppinglist(json ,req, res).then(send => res.status(200).json([json[0].email, send]));
+            getShoppinglist(json ,req, res).then(send => res.status(200).json([{"email":json[0].email}, send]));
         })
         .catch(error => {
             console.log("Error: " + error);
@@ -89,7 +89,7 @@ app.post('/shopping/add', (req, res) => {
 });
 
 app.post('/shopping/buy/:email', (req, res) => {
-    const email=req.body.email;
+    const email=req.params.email;
     console.log("Creating order");
         const query = datastore.createQuery('shopitem').filter('email', '=', email);
     
@@ -98,7 +98,11 @@ app.post('/shopping/buy/:email', (req, res) => {
         .then(entities => entities[0])
         .then(json => {
             console.log(json);
-            getShoppinglist(json ,req, res).then(send => createOrder(JSON.stringify([{"email":json[0].email}, send]), req, res).then(res => res.json()).then(json => res.status(200).json(json)));
+            getShoppinglist(json ,req, res).then(send => createOrder(email, JSON.stringify(send), req, res).then(res => res.json())
+                    .then(json => {
+                deliverOrder(json.id, req,res);
+                res.status(200).send();
+            }));
         })
         .catch(error => {
             console.log("Error: " + error);
@@ -106,12 +110,13 @@ app.post('/shopping/buy/:email', (req, res) => {
         });
 });
 
-function createOrder(shoppingcart, req, res) {
-        console.log("Creating order with shoppingcar: " + shoppingcart);
-        return fetch(req.protocol + '://' + req.host + '/delivery/createOrder/', {method:'Post', params: shoppingcart});
+function createOrder(email,cart, req, res) {
+        console.log("Creating order with shoppingcart: " + email + "items: " + cart);
+        return fetch(req.protocol + '://' + req.host + '/delivery/createOrder/', {method:'Post', body: JSON.stringify({"email":email, "items":cart}),
+        headers: { 'Content-Type': 'application/json' }});
 }
 function deliverOrder(orderId, req, res) {
-        return fetch(req.protocol + '://' + req.host + '/delivery/deliverOrder/'+orderId);
+        return fetch(req.protocol + '://' + req.host + '/delivery/deliverOrder/'+orderId, {method:'Post'});
 }
 
 const port = process.env.PORT || 2229;

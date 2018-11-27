@@ -10,11 +10,27 @@
 
     <div id="node-service"></div>
     <div id="forward-to-python"></div>
+    <div class="left" id="shopping">
+         <ul id="itemlist">
+        </ul> 
+    </div>
+    <div class="right" id="order"></div>
 </body>
 </html>
 
 <script>
-    fetch('node-service')
+    
+    fetch('product-service')
+        .then(res => res.json())
+        .then(json => {
+            console.log("node-service returned: " + JSON.stringify(json))
+        })
+        .catch(error => {
+            console.log("node-service returned error: " + error)
+    });
+    
+    
+    /*fetch('node-service')
         .then(res => res.json())
         .then(json => {
             console.log("node-service returned: " + JSON.stringify(json))
@@ -34,6 +50,7 @@
         .catch(error => {
             console.log("forward-to-python returned error: " + error)
             document.querySelector("#forward-to-python").innerHTML = "forward-to-python returned: " + error;
-        });
+        });*/
+     
 
 </script>

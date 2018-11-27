@@ -12,7 +12,49 @@ app.use(bodyParser.json()); // for parsing application/json
 app.get('/product-service', (req, res) => {
     console.log("Mountpath: " + app.mountpath);
     console.log("BaseUrl: " + req.baseUrl);
-    res.status(200).json({ 'message': 'Hello from ProductService' });
+        const products = [
+        {
+            key: datastore.key(["product", '1']),
+            data: {
+               name: "Milk",
+               price: 39.9,
+            },
+        },
+        {
+            key: datastore.key(["product", '2']),
+            data: {
+               name: "Cheese",
+               price: 30.0,
+            },
+        },
+        {
+            key: datastore.key(["product", '3']),
+            data: {
+               name: "Bread",
+               price: 25.4,
+            },
+        },
+        {
+            key: datastore.key(["product", '4']),
+            data: {
+               name: "Egg",
+               price: 32.0,
+            },
+        },
+        {
+            key: datastore.key(["product", '5']),
+            data: {
+               name: "Soda",
+               price: 19.9,
+            },
+        },
+    ];
+
+    datastore.upsert(products).then(() => {
+        res.status(200).send();
+    }).catch(error => {
+        res.status(500);
+    });
 });
 
 app.get('/products/get', (req, res) =>{

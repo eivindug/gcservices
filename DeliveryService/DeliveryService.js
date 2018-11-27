@@ -79,6 +79,7 @@ app.get("/delivery/getAll/", (req,res) => {
 
 app.post("/delivery/deliverOrder/:orderId",(req,res) => {
     const id = parseInt(req.params.orderId);
+    console.log("deliver order" + id);
     datastore.get(datastore.key(["delivery",id])).then(result => {
       var ent = result[0];
       const query = {
